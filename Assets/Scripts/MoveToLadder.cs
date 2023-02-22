@@ -8,9 +8,10 @@ public class MoveToLadder : MonoBehaviour {
     private Vector3[] movePoints;
     [SerializeField]
     private Vector3[] castlePoints;
-
     [SerializeField]
     private float speed = 3f;
+    [SerializeField]
+    private Transform _lockObjectInDialog;
 
     private int currentIndex;
     private bool startMoveLandBool;
@@ -40,6 +41,11 @@ public class MoveToLadder : MonoBehaviour {
         if(this.transform.position != target) {
             this.transform.LookAt(target);
             this.transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+            if(currentIndex == movePoints.Length - 1) {
+                this.transform.LookAt(_lockObjectInDialog);
+            }
+
         } else {
             currentIndex++;
         }
